@@ -8,18 +8,12 @@ namespace AccessData
 {
     public class BlogModelBuilder
     {
-        public static T GetBlogLight<T>(BlogQueryBuilder qb) where T :  IBlogLight
+        public static IQueryable<T> GetBlogLight<T>(BlogQueryBuilder qb) where T : IBlogLight, new()
         {
             var res = from b in qb.GetQuery()
-                      select new { IdBlog = b.IdBlog };
-            return res.Cast<T>().FirstOrDefault();
+                      select new T { IdBlog = b.IdBlog };
+            return res;
         }
 
-        public static List<T> GetListeBlogLight<T>(BlogQueryBuilder qb) where T : IBlogLight
-        {
-            var res = from b in qb.GetQuery()
-                      select new { IdBlog = b.IdBlog };
-            return res.Cast<T>().ToList();
-        }
     }
 }

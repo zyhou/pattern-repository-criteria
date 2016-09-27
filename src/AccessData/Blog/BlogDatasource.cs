@@ -18,10 +18,10 @@ namespace AccessData
             return new BlogDatasource();
         }
 
-        public T GetBlogLight<T>(int idBlog) where T : IBlogLight
+        public T GetBlogLight<T>(int idBlog) where T : IBlogLight, new()
         {
             var qb = new BlogQueryBuilder() { IdBlog = idBlog };
-            T res = BlogModelBuilder.GetBlogLight<T>(qb);
+            T res = BlogModelBuilder.GetBlogLight<T>(qb).FirstOrDefault();
             return res;
         }
 
