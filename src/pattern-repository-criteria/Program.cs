@@ -1,5 +1,8 @@
 ﻿using AccessData;
+using AccessData.Entity;
 using DTO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +15,22 @@ namespace pattern_repository_criteria
     {
         public static void Main(string[] args)
         {
-            var blog = BlogDatasource.Instance().GetBlogLight<BlogLightModel>(1);
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddDbContext<Contexte>(options => options.UseSqlite("Filename=./blog.db"));
+            IServiceProvider services = serviceCollection.BuildServiceProvider();
 
-            WriteLine(blog.IdBlog);
+            using (var context = services.GetService<Contexte>())
+            {
+                BlogRepository.Instance(context).AddUpdateBLogLight(new BlogLightModel() { NomBlog = "Blog perso" });
+            }
+
+
+            //BlogRepository.Instance().AddUpdateBLogLight(new BlogLightModel() { NomBlog = "Blog perso" });
+
+            //var blog = BlogDatasource.Instance().GetBlogLight<BlogLightModel>(1);
+
+            //WriteLine(blog.IdBlog);
+
             ReadKey();
         }
     }

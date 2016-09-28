@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,14 +8,27 @@ using System.Threading.Tasks;
 
 namespace AccessData.Entity
 {
-    public class BloggingContext : DbContext
+
+    public class ContextetFactory : IDbContextFactory<Contexte>
+    {
+
+        public Contexte Create(DbContextFactoryOptions options)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<Contexte>();
+            optionsBuilder.UseSqlite("Filename=./blog.db");
+
+            return new Contexte(optionsBuilder.Options);
+        }
+    }
+
+    public class Contexte : DbContext
     {
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public Contexte(DbContextOptions<Contexte> options) : base(options)
         {
-            optionsBuilder.UseSqlite("Filename=./blog.db");
+
         }
     }
     public class Blog
