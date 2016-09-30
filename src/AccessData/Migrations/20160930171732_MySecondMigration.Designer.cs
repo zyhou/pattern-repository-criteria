@@ -7,9 +7,9 @@ using AccessData.Entity;
 
 namespace AccessData.Migrations
 {
-    [DbContext(typeof(BloggingContext))]
-    [Migration("20160927215250_MyFirstMigration")]
-    partial class MyFirstMigration
+    [DbContext(typeof(Contexte))]
+    [Migration("20160930171732_MySecondMigration")]
+    partial class MySecondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,8 @@ namespace AccessData.Migrations
                 {
                     b.Property<int>("IdBlog")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsClos");
 
                     b.Property<string>("Nom");
 

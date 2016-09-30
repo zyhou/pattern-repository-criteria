@@ -11,7 +11,10 @@ namespace AccessData
         public static IQueryable<T> GetBlogLight<T>(BlogQueryBuilder qb) where T : IBlogLight, new()
         {
             var res = from b in qb.GetQuery()
-                      select new T { IdBlog = b.IdBlog };
+                      select new T {
+                          IdBlog = b.IdBlog,
+                          NomBlog = b.Nom,
+                          UrlBlog = b.Url};
             return res;
         }
 

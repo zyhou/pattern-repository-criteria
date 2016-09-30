@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace AccessData
 {
-    public class BlogRepository
+    public class BlogRepository 
     {
 
-        private readonly TContext _contexte;
+        private readonly Contexte _contexte;
 
-        public BlogRepository(DbContext contexte)
+        public BlogRepository(Contexte contexte)
         {
             _contexte = contexte;
         }
 
-        public static BlogRepository Instance(TContext contexte)
+        public static BlogRepository Instance(Contexte contexte)
         {
             return new BlogRepository(contexte);
         }
@@ -41,11 +41,31 @@ namespace AccessData
 
             blogEntity.IdBlog = blog.IdBlog;
             blogEntity.Nom = blog.NomBlog;
+            blogEntity.Url = blog.UrlBlog;
 
             _contexte.SaveChanges();
 
             return blogEntity.IdBlog;
         }
 
+        public void UpdateUrlBlog(int idBlog, string urlBlog)
+        {
+            Blog blogEntity = _contexte.Blogs.FirstOrDefault(b => b.IdBlog == idBlog);
+            if (blogEntity == null) throw new ArgumentException("L'id de blog ne correspond à aucun blog existant.");
+
+            blogEntity.Nom = urlBlog;
+
+            _contexte.SaveChanges();
+        }
+
+        public void ClotureBlog(int idBlog)
+        {
+            Blog blogEntity = _contexte.Blogs.FirstOrDefault(b => b.IdBlog == idBlog);
+            if (blogEntity == null) throw new ArgumentException("L'id de blog ne correspond à aucun blog existant.");
+
+            blogEntity.IsClos = true;
+
+            _contexte.SaveChanges();
+        }
     }
 }

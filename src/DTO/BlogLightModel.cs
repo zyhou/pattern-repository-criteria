@@ -10,5 +10,6 @@ namespace DTO
     {
         public int IdBlog { get; set; }
         public string NomBlog { get; set; }
+        public string UrlBlog { get; set; }
     }
 }

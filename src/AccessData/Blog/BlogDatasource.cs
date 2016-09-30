@@ -1,4 +1,5 @@
-﻿using IAccessData;
+﻿using AccessData.Entity;
+using IAccessData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +9,43 @@ namespace AccessData
 {
     public class BlogDatasource
     {
-        public BlogDatasource()
-        {
+        private readonly Contexte _contexte;
 
+        public BlogDatasource(Contexte contexte)
+        {
+            _contexte = contexte;
         }
 
-        public static BlogDatasource Instance()
+        public static BlogDatasource Instance(Contexte contexte)
         {
-            return new BlogDatasource();
+            return new BlogDatasource(contexte);
         }
 
         public T GetBlogLight<T>(int idBlog) where T : IBlogLight, new()
         {
-            var qb = new BlogQueryBuilder() { IdBlog = idBlog };
+            var qb = new BlogQueryBuilder(_contexte) { IdBlog = idBlog };
             T res = BlogModelBuilder.GetBlogLight<T>(qb).FirstOrDefault();
             return res;
         }
+        public List<T> GetListeBlogLight<T>(ICriteresBlog criteres) where T : IBlogLight, new()
+        {
+            var qb = new BlogQueryBuilder(_contexte);
+            qb.FeedQuery(criteres);
+            List<T> res = BlogModelBuilder.GetBlogLight<T>(qb).ToList();
+            return res;
+        }
 
+        public int GetCountBlog()
+        {
+            var qb = new BlogQueryBuilder(_contexte);
+            return qb.GetQuery().Count();
+        }
+
+        public string GetNomBlog(int idBlog)
+        {
+            var qb = new BlogQueryBuilder(_contexte) { IdBlog = idBlog };
+            string res = qb.GetQuery().Select(b => b.Nom).FirstOrDefault();
+            return res;
+        }
     }
 }
