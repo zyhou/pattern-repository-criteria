@@ -8,4 +8,4 @@ Le contexte est injecté aux plus haut niveaux de l'application, ce qu'il fait q
 
 **Ce qui est vraiment intéressant dans cette architecture, ce sont les critères de filtrage et la création de modèles.**
 
-[Pour en savoir plus, rendez-vous sur mon blog.](https://zyhou.github.io/2016/architecture-acces-aux-donnees/){:target="_blank"}
+<a href="https://zyhou.github.io/2016/architecture-acces-aux-donnees/" target="_blank">Pour en savoir plus, rendez-vous sur mon blog.</a>
