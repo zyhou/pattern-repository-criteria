@@ -47,5 +47,14 @@ namespace AccessData
             string res = qb.GetQuery().Select(b => b.Nom).FirstOrDefault();
             return res;
         }
+
+        //Public Function GetListeBlogLight(Of T As { New, IBenefLight})() As List(Of T)
+        //    Dim res As List(Of T) = Nothing
+
+        //    Dim qb As New BenefQueryBuilder(Me.Contexte)
+        //    res = BenefModelBuilder.GetBlogLight(Of T)(qb).ToList()
+
+        //    Return res
+        //End Function
     }
 }

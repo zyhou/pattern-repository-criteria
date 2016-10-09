@@ -18,5 +18,14 @@ namespace AccessData
             return res;
         }
 
+        //  Public Shared Function GetBlogLight(Of T As { New, IBenefLight})(qb As BenefQueryBuilder) As ObjectQuery(Of T)
+        //    Dim res As ObjectQuery(Of T) = From m In qb.GetQuery()
+        //                                   Select New T With {
+        //                                   .Id = m.BENEF_ID,
+        //                                   .Name = m.BENEF_NOM,
+        //                                   .LastName = m.BENEF_PRENOM}
+        //    Return res
+        //End Function
+
     }
 }
